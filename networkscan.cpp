@@ -15,14 +15,14 @@ void QueryInstalledSoftware(IWbemServices* pSvc);
 int main() {
     HRESULT hres;
 
-    // Initialize COM
+    
     hres = CoInitializeEx(0, COINIT_MULTITHREADED);
     if (FAILED(hres)) {
         std::cerr << "Failed to initialize COM library. Error code: " << hres << std::endl;
         return 1;
     }
 
-    // Initialize COM security
+    
     hres = CoInitializeSecurity(
         NULL,
         -1,
@@ -41,7 +41,7 @@ int main() {
         return 1;
     }
 
-    // Initialize the WMI COM library
+    
     IWbemLocator* pLoc = NULL;
     hres = CoCreateInstance(
         CLSID_WbemLocator,
@@ -57,7 +57,7 @@ int main() {
         return 1;
     }
 
-    // Connect to the local WMI namespace
+    
     IWbemServices* pSvc = NULL;
     hres = pLoc->ConnectServer(
         _bstr_t(L"ROOT\\CIMV2"),
@@ -77,7 +77,7 @@ int main() {
         return 1;
     }
 
-    // Set security levels on the proxy
+    
     hres = CoSetProxyBlanket(
         pSvc,
         RPC_C_AUTHN_WINNT,
@@ -97,25 +97,25 @@ int main() {
         return 1;
     }
 
-    // Query and display operating system information
+    
     QueryOperatingSystemInfo(pSvc);
 
-    // Query and display installed software
+    
     QueryInstalledSoftware(pSvc);
 
-    // Cleanup and release COM objects
+    
     pSvc->Release();
     pLoc->Release();
     CoUninitialize();
 
-    std::cout << "Press Enter to exit...";
-    getchar(); // Wait for the user to press Enter
+    std::cout << "enter to exit...";
+    getchar(); 
 
     return 0;
 }
 
 void QueryOperatingSystemInfo(IWbemServices* pSvc) {
-    // Code for querying and displaying operating system information
+    
     IEnumWbemClassObject* pEnumeratorOS = NULL;
     HRESULT hres = pSvc->ExecQuery(
         _bstr_t("WQL"),
@@ -154,7 +154,7 @@ void QueryOperatingSystemInfo(IWbemServices* pSvc) {
 }
 
 void QueryInstalledSoftware(IWbemServices* pSvc) {
-    // Code for querying and displaying installed software
+    
     IEnumWbemClassObject* pEnumeratorSW = NULL;
     HRESULT hres = pSvc->ExecQuery(
         _bstr_t("WQL"),
