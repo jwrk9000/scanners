@@ -3,24 +3,24 @@
 #include <string>
 #include <windows.h>
 
-// Function to check if a registry key exists
+
 bool DoesRegistryKeyExist(HKEY hRootKey, const std::wstring& subkeyPath) {
     HKEY hKey;
     if (RegOpenKeyExW(hRootKey, subkeyPath.c_str(), 0, KEY_READ, &hKey) == ERROR_SUCCESS) {
         RegCloseKey(hKey);
-        return true; // Key exists
+        return true; 
     }
-    return false; // Key does not exist
+    return false; 
 }
 
 int main() {
-    // Root registry key (e.g., HKEY_LOCAL_MACHINE)
+    
     HKEY hRootKey = HKEY_LOCAL_MACHINE;
 
-    // Create a vector to store the registry keys
+    
     std::vector<std::wstring> registryKeys;
 
-    // Add your registry keys to the list with wide character strings (wstring)
+    
     registryKeys.push_back(L"SYSTEM\\CurrentControlSet\\Services");
     registryKeys.push_back(L"SYSTEM\\CurrentControlSet\\Control\\SecurityProviders");
     registryKeys.push_back(L"SYSTEM\\CurrentControlSet\\Control\\SafeBoot");
@@ -41,10 +41,9 @@ int main() {
     registryKeys.push_back(L"SYSTEM\\CurrentControlSet\\Services");
     registryKeys.push_back(L"SYSTEM\\CurrentControlSet\\Services\\SharedAccess\\Parameters\\FirewallPolicy");
     registryKeys.push_back(L"SYSTEM\\CurrentControlSet\\Services\\MpsSvc");
+    // add more keys as needed
 
-    // Add more keys as needed
-
-    // Loop through the list and check the existence of each key
+    
     for (const std::wstring& key : registryKeys) {
         if (DoesRegistryKeyExist(hRootKey, key)) {
             std::wcout << L"Key '" << key << L"' exists." << std::endl;
@@ -54,9 +53,9 @@ int main() {
         }
     }
 
-    // Pause to keep the command prompt window open
+    
     std::wcout << L"Press any key to exit..." << std::endl;
-    std::wcin.get();  // Wait for user input
+    std::wcin.get();  
 
     return 0;
 }
