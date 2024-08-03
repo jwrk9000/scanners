@@ -1,5 +1,5 @@
 
-// version/architecture scan
+// processes scan
 //,
 //,
 //,
